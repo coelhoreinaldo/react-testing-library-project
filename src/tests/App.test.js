@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../App';
@@ -44,5 +44,20 @@ describe('App.js', () => {
     const { location: { pathname } } = history;
 
     expect(pathname).toBe('/favorites');
+  });
+
+  it('should redirect to Not Found page when trying to access unavailable pathname', () => {
+    const { history } = renderWithRouter(<App />);
+    const UNAVAILABLE_URL = '/greymon';
+
+    act(() => {
+      history.push(UNAVAILABLE_URL);
+    });
+
+    const notFoundText = screen.getByRole('heading', {
+      name: /Page requested not found/i,
+      level: 2,
+    });
+    expect(notFoundText).toBeInTheDocument();
   });
 });
