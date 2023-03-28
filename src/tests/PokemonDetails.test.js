@@ -1,6 +1,7 @@
 import React from 'react';
 import { screen, act } from '@testing-library/react';
 // import userEvent from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../renderWithRouter';
 import pokemonList from '../data';
 import App from '../App';
@@ -51,14 +52,39 @@ describe('PokemonDetails.js', () => {
     expect(locationImg1[0].src).toBe(locs[0].map);
     expect(locationImg1[1].src).toBe(locs[1].map);
   });
+
+  it('should be possible to favorite a pokemon', () => {
+    const toFavorite = screen.getByRole('checkbox', {
+      name: /pokémon favoritado\?/i,
+    });
+    expect(toFavorite).toBeInTheDocument();
+
+    userEvent.click(toFavorite);
+
+    const favorites = screen.getByRole('link', {
+      name: /favorite pokémon/i,
+    });
+    userEvent.click(favorites);
+
+    const pikachuName = screen.getByText(/pikachu/i);
+    expect(pikachuName).toBeInTheDocument();
+    const pikachuType = screen.getByText(/electric/i);
+    expect(pikachuType).toBeInTheDocument();
+    const pikachuImg = screen.getByRole('img', {
+      name: /pikachu sprite/i,
+    });
+    expect(pikachuImg).toBeInTheDocument();
+
+    const moreDetails = screen.getByRole('link', { name: /more details/i });
+    userEvent.click(moreDetails);
+
+    const toUnfavorite = screen.getByRole('checkbox', {
+      name: /pokémon favoritado\?/i,
+    });
+    userEvent.click(toUnfavorite);
+    userEvent.click(favorites);
+
+    const findPikachu = screen.queryByText(/pikachu/i);
+    expect(findPikachu).not.toBeInTheDocument();
+  });
 });
-
-// Na seção de detalhes deverá existir um heading h2 com o texto Game Locations of <name>; onde <name> é o nome do Pokémon exibido;
-
-// Todas as localizações do Pokémon devem ser mostradas na seção de detalhes;
-
-// Devem ser exibidos o nome da localização e uma imagem do mapa em cada localização;
-
-// A imagem da localização deve ter um atributo src com a URL da localização;
-
-// A imagem da localização deve ter um atributo alt com o texto <name> location, onde <name> é o nome do Pokémon.
