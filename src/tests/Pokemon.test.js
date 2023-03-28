@@ -1,5 +1,6 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../renderWithRouter';
 import Pokemon from '../components/Pokemon';
 import pokemonList from '../data';
@@ -34,5 +35,18 @@ describe('Pokemon.js', () => {
     expect(pikachuImg.src).toBe('https://archives.bulbagarden.net/media/upload/b/b2/Spr_5b_025_m.png');
     expect(pikachuImg.alt).toBe('Pikachu sprite');
     expect(pikachuImg).toBeInTheDocument();
+  });
+
+  it('should have a link to pokemon details', () => {
+    const { history } = renderWithRouter(<Pokemon
+      pokemon={ pokemonList[1] }
+      isFavorite
+    />);
+
+    const linkToDetails = screen.getByRole('link', { name: /details/i });
+    userEvent.click(linkToDetails);
+
+    const { location: { pathname } } = history;
+    expect(pathname).toBe('/pokemon/4');
   });
 });
