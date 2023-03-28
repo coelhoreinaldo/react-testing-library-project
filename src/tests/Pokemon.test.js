@@ -49,4 +49,18 @@ describe('Pokemon.js', () => {
     const { location: { pathname } } = history;
     expect(pathname).toBe('/pokemon/4');
   });
+
+  it('should exist a star icon on the favorited pokemons', () => {
+    renderWithRouter(<Pokemon
+      pokemon={ pokemonList[2] }
+      isFavorite
+    />);
+
+    const starIcon = screen.getByRole('img', {
+      name: /caterpie is marked as favorite/i,
+    });
+    expect(starIcon).toBeInTheDocument();
+    expect(starIcon.src).toBe('http://localhost/star-icon.svg');
+    expect(starIcon.alt).toBe('Caterpie is marked as favorite');
+  });
 });
