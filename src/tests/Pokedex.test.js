@@ -5,12 +5,6 @@ import renderWithRouter from '../renderWithRouter';
 import { Pokedex } from '../pages';
 import pokemonList from '../data';
 
-// const isPokemonFavorite = {
-//   4: true,
-//   10: false,
-//   25: true,
-// };
-
 const isPokemonFavorite = {
   4: true,
   10: false,
@@ -22,42 +16,6 @@ const isPokemonFavorite = {
   148: false,
   151: false,
 };
-
-// const pokemonList = [
-//   {
-//     id: 25,
-//     name: 'Pikachu',
-//     type: 'Electric',
-//     averageWeight: {
-//       value: '6.0',
-//       measurementUnit: 'kg',
-//     },
-//     image: 'https://archives.bulbagarden.net/media/upload/b/b2/Spr_5b_025_m.png',
-//     moreInfo: 'https://bulbapedia.bulbagarden.net/wiki/Pikachu_(Pok%C3%A9mon)',
-//   },
-//   {
-//     id: 4,
-//     name: 'Charmander',
-//     type: 'Fire',
-//     averageWeight: {
-//       value: '8.5',
-//       measurementUnit: 'kg',
-//     },
-//     image: 'https://archives.bulbagarden.net/media/upload/0/0a/Spr_5b_004.png',
-//     moreInfo: 'https://bulbapedia.bulbagarden.net/wiki/Charmander_(Pok%C3%A9mon)',
-//   },
-//   {
-//     id: 10,
-//     name: 'Caterpie',
-//     type: 'Bug',
-//     averageWeight: {
-//       value: '2.9',
-//       measurementUnit: 'kg',
-//     },
-//     image: 'https://archives.bulbagarden.net/media/upload/8/83/Spr_5b_010.png',
-//     moreInfo: 'https://bulbapedia.bulbagarden.net/wiki/Caterpie_(Pok%C3%A9mon)',
-//   },
-// ];
 
 describe('Pokedex.js', () => {
   it('should have an h2 with the text "Encountered Pokémon"', () => {
@@ -89,7 +47,7 @@ describe('Pokedex.js', () => {
     expect(caterpie).toBeInTheDocument();
   });
 
-  it('should show 8 filter buttons', () => {
+  it('should filter the Pokemon list by type when a filter button is clicked', () => {
     renderWithRouter(<Pokedex
       pokemonList={ pokemonList }
       isPokemonFavoriteById={ isPokemonFavorite }
@@ -108,5 +66,25 @@ describe('Pokedex.js', () => {
 
     const allButton = screen.getByRole('button', { name: 'All' });
     expect(allButton).toBeVisible();
+    userEvent.click(allButton);
+    const pikachu2 = screen.getByText(/pikachu/i);
+    expect(pikachu2).toBeInTheDocument();
+  });
+
+  it('should contain a button to clear the filters', () => {
+    renderWithRouter(<Pokedex
+      pokemonList={ pokemonList }
+      isPokemonFavoriteById={ isPokemonFavorite }
+    />);
+
+    const allButton = screen.getByRole('button', { name: 'All' });
+    expect(allButton).toBeVisible();
+
+    userEvent.click(allButton);
+    const nextBtn = screen.getByRole('button', { name: /próximo pokémon/i });
+    pokemonList.forEach((pokemon) => {
+      expect(screen.getByText(`${pokemon.name}`)).toBeInTheDocument();
+      userEvent.click(nextBtn);
+    });
   });
 });
