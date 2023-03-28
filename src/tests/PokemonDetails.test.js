@@ -1,6 +1,5 @@
 import React from 'react';
 import { screen, act } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../renderWithRouter';
 import pokemonList from '../data';
@@ -16,7 +15,7 @@ describe('PokemonDetails.js', () => {
     });
   });
 
-  it('should show detailed info of the selected pokemon', () => {
+  it('should display detailed info of the selected pokemon', () => {
     const pikachuName = screen.getByRole('heading', {
       name: /pikachu details/i,
       level: 2,
@@ -36,7 +35,7 @@ describe('PokemonDetails.js', () => {
     expect(pokemonDetails).toBeInTheDocument();
   });
 
-  it('should exist a section with the maps containing the locations of the pokemons', () => {
+  it('should have a section with maps containing the locations of the pokemons', () => {
     const gameLocations = screen.getByRole('heading', {
       name: /game locations of pikachu/i,
       level: 2,

@@ -14,7 +14,7 @@ describe('NotFound.js', () => {
     expect(notFoundText).toBeInTheDocument();
   });
 
-  it('must contain a specific image', () => {
+  it('should contain a specific image', () => {
     renderWithRouter(<NotFound />);
 
     const pikachuCryingImg = screen.getByRole('img', {

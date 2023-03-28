@@ -6,7 +6,7 @@ import Pokemon from '../components/Pokemon';
 import pokemonList from '../data';
 
 describe('Pokemon.js', () => {
-  it('should renderize a card with the info about a certain Pokémon', () => {
+  it('should render a card with information about a specific Pokémon', () => {
     renderWithRouter(<Pokemon pokemon={ pokemonList[0] } isFavorite />);
     const pikachuName = screen.getByText(/pikachu/i);
     expect(pikachuName).toBeInTheDocument();
