@@ -4,7 +4,7 @@ import renderWithRouter from '../renderWithRouter';
 import { NotFound } from '../pages';
 
 describe('NotFound.js', () => {
-  it('should have a h2 with "Page requested not found" text', () => {
+  it('should have an h2 with the text "Page requested not found"', () => {
     renderWithRouter(<NotFound />);
 
     const notFoundText = screen.getByRole('heading', {
@@ -14,7 +14,7 @@ describe('NotFound.js', () => {
     expect(notFoundText).toBeInTheDocument();
   });
 
-  it('should have a specific image', () => {
+  it('must contain a specific image', () => {
     renderWithRouter(<NotFound />);
 
     const pikachuCryingImg = screen.getByRole('img', {
