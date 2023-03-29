@@ -4,7 +4,7 @@
 
 ## 📘 Sobre
 
-Desenvolvi testes usando Jest e a biblioteca React Testing Library para uma aplicação de Pokedéx.
+Desenvolvi testes para uma aplicação React usando Jest e a biblioteca React Testing Library.
 
 ## ⚛️ Habilidades
 
@@ -27,10 +27,12 @@ Projeto construído utilizando React.js.
 
 3. Executando os testes
 
+`npm test`
+
 ## 📝 Nota
 
 <img src='./src/images/grade.png' alt='nota final' />
 
 ## ©️ Copyright
 
-- Logo "Trybetunes" - Direitos reservados à Trybe.
+A pasta "tests" foi desenvolvida por mim e os direitos pertencem a mim. A aplicação testada foi desenvolvida pela Trybe, e esta detém todos os direitos.
